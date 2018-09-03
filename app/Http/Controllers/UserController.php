@@ -53,7 +53,7 @@ class UserController extends Controller
                 return view('users/novo');
             }else{
                 DB::rollback();
-                \Session::flash('mensagem_sucesso','Cadastrado com sucesso!'); 
+                \Session::flash('mensagem_erro','Erro ao enviar e-mail!'); 
                 return  view('users/novo');
             }
         }
