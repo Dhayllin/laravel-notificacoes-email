@@ -1,6 +1,5 @@
 # Exemplo de envio de notificação com Laravel
 
-
 ## Gmail
 
 Caso o host do e-mail seja o GMAIL, alterar as configurações do seu .env para
