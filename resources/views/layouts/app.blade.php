@@ -29,11 +29,10 @@
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 </ul>
-                <ul  class="nav-item" >
-                 Início
-                </ul> 
-                <ul class="nav-item dropdown" >
-                                    Usuários <span class="caret"></span>
+                <ul class="nav-item " >
+                        <a class="navbar-brand" href="{{ url('/users') }}">
+                            Usuários
+                        </a>
                 </ul>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

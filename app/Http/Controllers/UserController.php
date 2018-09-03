@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use DB;
+Use Mail;
+use App\Mail\ConfirmaCadastro;
+use Hash;
 
 class UserController extends Controller
 {
@@ -14,7 +18,7 @@ class UserController extends Controller
      */
     public function index(){
         $users = User::all();
-        return view('users.lista',['users'=>$users]);
+        return  view('users/lista',['users'=>$users]);
     }
 
     /**
@@ -24,7 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('users/novo');
     }
 
     /**
@@ -35,7 +39,24 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = new User();
+        $user->name= $request->name;
+        $user->email= $request->email;
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        if($user){
+            Mail::to($request->email,$request->name)->send(new ConfirmaCadastro($request));
+            if(!Mail::failures()){
+                DB::commit();
+                \Session::flash('mensagem_sucesso','Cadastrado com sucesso!'); 
+                return view('users/novo');
+            }else{
+                DB::rollback();
+                \Session::flash('mensagem_sucesso','Cadastrado com sucesso!'); 
+                return  view('users/novo');
+            }
+        }
     }
 
     /**
